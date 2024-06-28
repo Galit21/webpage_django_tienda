@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro </title>
+    <title>Tijeras </title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style/sylecss.css">
@@ -29,7 +29,7 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav flex-grow-1 justify-content-between">
           <li class="nav-item"><a class="nav-link" href="#">
-            <svg class="bi" width="24" height="24"><use xlink:href="Home"></use></svg>
+            <svg class="bi" width="24" height="24"><use xlink:href="index.html"></use></svg>
           </a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="herramientas.html" id="navbarDropdownMenuLink1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -85,66 +85,61 @@
 </nav>
   
 <!-- CONTENIDO-->
-<!--FORMULARIO DE REGISTRO-->
-  
-<div class="container">
-<main>
-  <div class="py-5 text-center">
-    <h2>Formulario de Registro</h2>
-  </div>
-
-  <div class="row">
-    <div class="col">
-      <h4 class="mb-3">Datos Personales</h4>
-      <form class="needs-validation" novalidate>
-        <div class="row g-3">
-          <div class="col-sm-6">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" placeholder="" value="" required>
-
-          </div>
+<div class="container-fluid"  style=" align-items: center; align-content: center;">
+    <div class="row">
+        <div class="col-sm-12">
+          <h1 class="text-center" style="font-style: normal; padding: 3%;" > Herramientas de Jardineria</h1>
         </div>
-
-          <div class="col-sm-6">
-            <label for="apellido" class="form-label">Apellido</label>
-            <input type="text" class="form-control" id="apellido" placeholder="" value="" required>
+        <div class="row">
+              <!-- CARD 1 -->
+              <div class="col-xl-3 col-sm-6" >
+                  <div class="card">
+                  <a href="tijeras_producto.html">
+                  <img src="img/tijera_1.png" class="card-img-top" width="100px" height="300px" alt="...">
+                      <div class="card-body">
+                          <h5 class="card-title" style="color: #000000;">Tijeras de podar con asas grandes </h5>
+                          <p class="card-text" style="color: #000000;"></p>
+                      </div>
+                  </div></a>
+              </div>
+              <!-- CARD 2 -->
+              <div class=" col-sm-6 col-xl-3">
+                  <div class="card">
+                      <a href="">
+                      <img src="img/tijera_2.png" class="card-img-top" width="100px" height="300px" alt="...">
+                      <div class="card-body">
+                          <h5 class="card-title" style="color: #000000;">Tijera de podar con Mango Rotario</h5>
+                          <p class="card-text" style="color: #000000;"></p>
+                      </div>
+                  </div></a>
+              </div>
+              <!-- CARD 3 -->
+              <div class=" col-xl-3 col-sm-6">
+                  <div class="card "  >
+              <a href="">
+              <img src="img/tijera_3.png" class="card-img-top" width="100px" height="300px" alt="...">
+                      <div class="card-body">
+                          <h5 class="card-title" style="color:#000000">Tijera de podar hojas curvas  Micro-Tip </h5>
+                          <p class="card-text" style="color:#000000"></p>
+                      </div>
+                  </div></a>
+              </div>
+              <!-- CARD 4-->
+              <div class=" col-xl-3 col-sm-6">
+                <div class="card "  >
+            <a href="">
+            <img src="img/tijera_4.png" class="card-img-top" width="100px" height="300px" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" style="color:#000000">Tijera de Podar de una mano Corte Bypass </h5>
+                        <p class="card-text" style="color:#000000"></p>
+                    </div>
+                </div></a>
+            </div>            
           </div>
-          <div class="col-12">
-            <label for="Email" class="form-label">Email</label>
-            <div class="input-group has-validation">
-              <span class="input-group-text">@</span>
-              <input type="text" class="form-control" id="Email" placeholder="Email" required>
-
-            </div>
-          </div>
-          <div class="col-12">
-            <label for="Email" class="form-label"> Confirmar Email</label>
-            <div class="input-group has-validation">
-              <span class="input-group-text">@</span>
-              <input type="text" class="form-control" id="ConfirmEmail" placeholder="Email" required>
-
-            </div>
-          </div>
-          <div class="col-12">
-            <label for="address" class="form-label">Contraseña</label>
-            <input type="text" class="form-control" id="address" placeholder="Contraseña" required>
-          </div>
-          <div class="col-12">
-            <label for="address" class="form-label">Repite contraseña</label>
-            <input type="text" class="form-control" id="Repetiraddress" placeholder="Contraseña" required>
-          </div>
-
-        <hr class="my-4">
-
-        <button class="w-100 btn btn-success btn-lg" type="submit">Registrarse</button>
-      </form>
-    </div>
+    </div>  
   </div>
-</main>
-</div>
-
-
 <div class="b-example-divider"><p></p></div>
+
 <!-- FOOTER -->
 
 <footer class="container-fluid bg-dark">
@@ -223,11 +218,8 @@
 </div>
 
  <!-- SCRIPT --> 
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="validacion.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

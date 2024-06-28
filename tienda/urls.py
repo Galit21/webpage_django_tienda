@@ -1,11 +1,14 @@
 
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path
 from . import views
 
 
 urlpatterns = [
-    path('Home', views.home, name='home'),
-    path('Herramientas', views.herramientas, name='herramientas'),
-    path('Prueba', views.prueba, name='prueba'),
-
+    path('', views.home, name='home'),
+    path('categoria', views.categoria, name='categoria')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
