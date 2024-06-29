@@ -37,19 +37,18 @@ def productos(request, id, titulo):
 def carta(request, id):
     categoria = Categoria.objects.all()
     producto = get_object_or_404(Producto, id=id)
-
     context = {
         'categoria': categoria,
         'producto': producto,
     }
-    
     return render(request, 'tienda/carta_producto.html', context)
-
-#-----------------------------------#
 
 def carro(request):
     categoria = Categoria.objects.all()
-    context={'categoria': categoria}
+    itemcarrito = ItemCarrito.objects.all()
+    context={
+        'categoria': categoria,
+        'itemcarrito' : itemcarrito}
     return render(request, 'tienda\carro_compra.html', context)
 
 #-----------------------------------#
