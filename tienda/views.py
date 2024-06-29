@@ -34,20 +34,40 @@ def productos(request, id, titulo):
         }
     return render(request, 'tienda\productos.html', context)
 
-def carta(request, titulo, id):
+def carta(request, id):
     categoria = Categoria.objects.all()
-    producto = Producto.objects.get(id = id)
+    producto = get_object_or_404(Producto, id=id)
     titulo = producto.nombre
-    context={
-        'categoria': categoria,
-        'titulo' : titulo,
-        'producto' : producto
+
+    if request.method == 'POST':
+        carrito, created = Carrito.objects.get_or_create()
+        item, item_created = ItemCarrito.objects.get_or_create(carrito=carrito, producto=producto)
+        
+        if not item_created:
+            item.cantidad += 1
+            item.save()
+        
+        context = {
+            'categoria': categoria,
+            'producto': producto,
+            'status': 'success',
+            'cantidad': item.cantidad,
         }
-    return render(request, 'tienda\carta_producto.html', context)
+        
+        return render(request, 'tienda/carta_producto.html', context)
+
+    context = {
+        'categoria': categoria,
+        'producto': producto,
+    }
+    
+    return render(request, 'tienda/carta_producto.html', context)
+
+#-----------------------------------#
 
 def carro(request):
     categoria = Categoria.objects.all()
     context={'categoria': categoria}
     return render(request, 'tienda\carro_compra.html', context)
-#-----------------------------------#
+
 
