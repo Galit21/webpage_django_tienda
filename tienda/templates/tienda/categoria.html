@@ -49,7 +49,7 @@
               <input class="form-control me-2" type="Buscar" placeholder="Buscar" aria-label="Buscar">
               <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
-            <li class="nav-item"><a class="nav-link" href="carro_compra.html">
+            <li class="nav-item"><a class="nav-link" href="{% url 'carro' %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart4"
                   viewBox="0 0 16 16">
                   <path
@@ -85,7 +85,7 @@
         {% for subcategoria in lista_subcategoria %}
         <div class="col-md-4">
           <div class="card">
-            <a href="{% url 'productos' %}">
+            <a href="{% url 'productos' subcategoria.nombre subcategoria.id %}">
               <img src="{{subcategoria.imagen.url}}" class="card-img-top" width="100px" height="300px"
                 alt="...">
               <div class="card-body">

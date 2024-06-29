@@ -50,7 +50,7 @@
               <input class="form-control me-2" type="Buscar" placeholder="Buscar" aria-label="Buscar">
               <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i></button>
             </form>
-            <li class="nav-item"><a class="nav-link" href="carro_compra.html">
+            <li class="nav-item"><a class="nav-link" href="{% url 'carro' %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart4"
                   viewBox="0 0 16 16">
                   <path
@@ -78,53 +78,24 @@
   <div class="container-fluid" style=" align-items: center; align-content: center;">
     <div class="row">
       <div class="col-sm-12">
-        <h1 class="text-center" style="font-style: normal; padding: 3%;"> Herramientas de Jardineria</h1>
+        <h1 class="text-center" style="font-style: normal; padding: 3%;"> {{titulo}}</h1>
       </div>
-      <div class="row">
-        <!-- CARD 1 -->
-        <div class="col-xl-3 col-sm-6">
+      <div class="row justify-content-center">
+        <!-- CARD -->
+        {% for producto in lista_producto %}
+        <div class="col-md-4">
           <div class="card">
-            <a href="tijeras_producto.html">
-              <img src="img/tijera_1.png" class="card-img-top" width="100px" height="300px" alt="...">
+            <a href="{% url 'carta' producto.nombre producto.id %}">
+              <img src="{{producto.imagen.url}}" class="card-img-top" width="100px" height="300px"
+                alt="...">
               <div class="card-body">
-                <h5 class="card-title" style="color: #000000;">Tijeras de podar con asas grandes </h5>
-                <p class="card-text" style="color: #000000;"></p>
+                <h5 class="card-title" style="color: #000000;">{{producto.nombre}}</h5>
+                <p class="card-text" style="color: #000000;">{{producto.id}}</p>
               </div>
           </div></a>
         </div>
-        <!-- CARD 2 -->
-        <div class=" col-sm-6 col-xl-3">
-          <div class="card">
-            <a href="">
-              <img src="img/tijera_2.png" class="card-img-top" width="100px" height="300px" alt="...">
-              <div class="card-body">
-                <h5 class="card-title" style="color: #000000;">Tijera de podar con Mango Rotario</h5>
-                <p class="card-text" style="color: #000000;"></p>
-              </div>
-          </div></a>
-        </div>
-        <!-- CARD 3 -->
-        <div class=" col-xl-3 col-sm-6">
-          <div class="card ">
-            <a href="">
-              <img src="img/tijera_3.png" class="card-img-top" width="100px" height="300px" alt="...">
-              <div class="card-body">
-                <h5 class="card-title" style="color:#000000">Tijera de podar hojas curvas Micro-Tip </h5>
-                <p class="card-text" style="color:#000000"></p>
-              </div>
-          </div></a>
-        </div>
-        <!-- CARD 4-->
-        <div class=" col-xl-3 col-sm-6">
-          <div class="card ">
-            <a href="">
-              <img src="img/tijera_4.png" class="card-img-top" width="100px" height="300px" alt="...">
-              <div class="card-body">
-                <h5 class="card-title" style="color:#000000">Tijera de Podar de una mano Corte Bypass </h5>
-                <p class="card-text" style="color:#000000"></p>
-              </div>
-          </div></a>
-        </div>
+        {% endfor %}
+        <!-- CARD -->
       </div>
     </div>
   </div>
@@ -137,7 +108,7 @@
   <footer class="container-fluid bg-dark">
     <div class="row" style="padding: 3%;color: #f8f9fa;">
       <div class="col-12 col-md">
-        <img src="img/logo-blanco.png" width="50" alt="">
+        <img src="../../static/tienda/img/logo-blanco.png" width="50" alt="">
         <a class="navbar-brand d-md-none" href="{% url 'home' %}">
           <a class="navbar-brand" href="{% url 'home' %}">RAYITO</a>
         </a>
@@ -173,7 +144,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header bg-dark">
-          <img src="img/logo-blanco.png" alt="" width="30px" style="padding-right: 4px;">
+          <img src="../../static/tienda/img/logo-blanco.png" alt="" width="30px" style="padding-right: 4px;">
           <h5 class="modal-title" id="modalSigninLabel" style="color: #f8f9fa;">Inicio de Sesión</h5>
           <button type="button" class="btn-close bg-secondary " data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
