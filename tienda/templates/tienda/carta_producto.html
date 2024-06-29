@@ -96,7 +96,8 @@
               <h3 style="color:#343434">${{producto.valor}}</h3>
             </div>
             <div class="col-xl-6 col-sm-6">
-              <button type="button" class="btn btn-success" id="agregar_carro" data-product-id="{{ producto.id }}">Agregar al carrito</button>
+              <button type="button" class="add-to-cart" id="agregar_carro" data-product-id="{{ producto.id }}">Agregar
+                al carrito</button>
             </div>
           </div>
         </ul>
@@ -211,7 +212,7 @@
         $('#agregar_carro').on('click', function() {
             var productId = $(this).data('product-id');
             $.ajax({
-                url: '{% url "carta" 0 %}'.replace('0', productId),
+                url: '{% url "agregar_al_carrito" 0 %}'.replace('0', productId),
                 type: 'POST',
                 dataType: 'json',
                 headers: {
@@ -230,6 +231,7 @@
         });
     });
 </script>
+
 </body>
 
 </html>

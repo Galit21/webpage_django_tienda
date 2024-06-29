@@ -37,24 +37,6 @@ def productos(request, id, titulo):
 def carta(request, id):
     categoria = Categoria.objects.all()
     producto = get_object_or_404(Producto, id=id)
-    titulo = producto.nombre
-
-    if request.method == 'POST':
-        carrito, created = Carrito.objects.get_or_create()
-        item, item_created = ItemCarrito.objects.get_or_create(carrito=carrito, producto=producto)
-        
-        if not item_created:
-            item.cantidad += 1
-            item.save()
-        
-        context = {
-            'categoria': categoria,
-            'producto': producto,
-            'status': 'success',
-            'cantidad': item.cantidad,
-        }
-        
-        return render(request, 'tienda/carta_producto.html', context)
 
     context = {
         'categoria': categoria,
@@ -70,4 +52,18 @@ def carro(request):
     context={'categoria': categoria}
     return render(request, 'tienda\carro_compra.html', context)
 
+#-----------------------------------#
 
+def agregar_al_carrito(request, product_id):
+    if request.method == 'POST':
+        carrito, created = Carrito.objects.get_or_create()
+        producto = get_object_or_404(Producto, id=product_id)
+        item, created = ItemCarrito.objects.get_or_create(carrito=carrito, producto=producto)
+        
+        if not created:
+            item.cantidad += 1
+        item.save()
+        
+        return JsonResponse({'status': 'success', 'cantidad': item.cantidad})
+    
+    return JsonResponse({'status': 'error'}, status=400)
