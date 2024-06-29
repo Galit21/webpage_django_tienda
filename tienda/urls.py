@@ -7,7 +7,9 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('categoria', views.categoria, name='categoria')
+    path('<str:titulo>/<int:id>', views.categoria_vista, name='categoria_vista'),
+    path('productos', views.productos, name = 'productos')
+
 ]
 
 if settings.DEBUG:

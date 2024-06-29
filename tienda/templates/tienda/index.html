@@ -39,17 +39,9 @@
               </a>
             </li>
             <!-- Categorias-->
-            {% for categoria in categoria_index%}
+            {% for categoria in categoria %}
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                {{categoria.nombre}}
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
-                <li><a class="dropdown-item" href="tijeras.html">Tijeras</a></li>
-                <li><a class="dropdown-item" href="#">Palas</a></li>
-                <li><a class="dropdown-item" href="#">Otras Herramientas</a></li>
-              </ul>
+              <a fill="currentColor" href="{% url 'categoria_vista' categoria.nombre categoria.id %}">{{categoria.nombre}}</a>
             </li>
             {% endfor %}
             <!-- Fin Categorias-->
@@ -134,10 +126,10 @@
       </div>
       <div class="row justify-content-center">
         <!-- CARD -->
-        {% for categoria in categoria_index %}
+        {% for categoria in categoria %}
         <div class=" col-md-4">
           <div class="card ">
-            <a href="{% url 'categoria' %}">
+            <a href="{% url 'categoria_vista' categoria.nombre categoria.id %}">
               <img src="{{categoria.imagen.url}}" class="card-img-top" width="100px" height="300px"
                 alt="...">
                 <div class="card-body">

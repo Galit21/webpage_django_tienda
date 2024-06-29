@@ -1,24 +1,29 @@
 .navbar {
   border-bottom: 1px solid #000000;
 }
+
 .navbar-brand {
   font-size: 24px;
   font-weight: bold;
 }
+
 .navbar-toggler {
   border: none;
   background-color: transparent;
 }
- .nav-link {
+
+.nav-link {
   font-size: 14px;
   font-weight: bold;
   color: white;
   padding: 10px 15px;
 }
+
 .nav-link:hover,
 .nav-link:focus {
   color: #019a6c;
 }
+
 .dropdown-menu {
   border: none;
   border-radius: 0;
@@ -33,42 +38,50 @@
   display: none;
   background-color: #202020;
 }
-.dropdown:hover 
-.dropdown-menu {
+
+.dropdown:hover .dropdown-menu {
   display: block;
   opacity: 1;
 }
+
 .dropdown-item {
   font-size: 14px;
   font-weight: bold;
   color: #ffffff;
   padding: 10px 20px;
 }
+
 .dropdown-item:hover,
 .dropdown-item:focus {
   background-color: #f8f9fa;
 }
+
 .form-control {
   border-radius: 25px;
 }
+
 .btn-outline-success {
   border-color: lightseagreen;
   color: #ffffff;
   font-weight: bold;
   border-radius: 25px;
 }
+
 .btn-outline-success:hover {
   background-color: lightseagreen;
   color: #fff;
 }
-body{
+
+body {
   background-color: rgb(255, 255, 255);
 }
+
 .carousel {
   position: relative;
 }
+
 .carousel-indicators {
-  position:absolute ;
+  position: absolute;
   bottom: 10px;
   left: 50%;
   align-items: center;
@@ -78,6 +91,7 @@ body{
   margin: 0;
   padding: 0;
 }
+
 .carousel-indicators button {
   display: inline-block;
   width: 10px;
@@ -88,22 +102,29 @@ body{
   margin-right: 5px;
   cursor: pointer;
 }
-a {text-decoration: none;
-      display: block;
-      padding:3px;
-      color: #ffffff;}
-.titulo_blanco{
-    color: #ffffff;
-    display: block;
+
+a {
+  text-decoration: none;
+  display: block;
+  padding: 3px;
+  color: #ffffff;
 }
+
+.titulo_blanco {
+  color: #ffffff;
+  display: block;
+}
+
 i {
-    font-size: 25px;
-    padding:5px;
+  font-size: 25px;
+  padding: 5px;
 }
-.centrar{
-    align-items: center; 
-    align-content: center;
+
+.centrar {
+  align-items: center;
+  align-content: center;
 }
-.tamano_img_cartas{
-    width: 70%;
+
+.tamano_img_cartas {
+  width: 70%;
 }
