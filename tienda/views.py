@@ -66,3 +66,11 @@ def agregar_al_carrito(request, product_id):
         return JsonResponse({'status': 'success', 'cantidad': item.cantidad})
     
     return JsonResponse({'status': 'error'}, status=400)
+
+def eliminar_item_carrito(request, item_id):
+    item = get_object_or_404(ItemCarrito, id=item_id)
+    try:
+        item.delete()
+        return JsonResponse({'status': 'success'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)})
