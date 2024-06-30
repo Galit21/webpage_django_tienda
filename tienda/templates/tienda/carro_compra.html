@@ -94,11 +94,16 @@
                     <div class="d-flex align-items-center">
                       <button class="btn btn-secondary rounded-pill mr-2" onclick="updateCart(this, -1)">-</button>
                       <p class="mb-0">{{ item.cantidad }}</p>
-                      <button class="btn btn-secondary rounded-pill ml-2" onclick="updateCart(this, 1)">+</button>
+                      <!--boton +-->
+                      <button class="btn btn-secondary rounded-pill mr-2 agregar_carro" type="button"
+                        data-product-id="{{ item.producto.id }}">+</button>
+
                     </div>
                   </div>
                   <div class="col-lg-12 mt-3">
-                    <button type="button" class="btn btn-danger eliminar-item" data-item-id="{{ item.id }}">Eliminar</button>
+                    <!--boton eliminar-->
+                    <button type="button" class="btn btn-danger eliminar-item"
+                      data-item-id="{{ item.id }}">Eliminar</button>
                   </div>
                 </div>
               </div>
@@ -132,12 +137,12 @@
     <!-- ...contenido del pie de página... -->
   </footer>
 
-  <!-- SCRIPTS -->
+  <!-- SCRIPT para boton eliminar -->
   <script>
     $(document).ready(function () {
       $('.eliminar-item').click(function () {
         var itemId = $(this).data('item-id');  // Obtener el ID del ítem a eliminar
-    
+
         $.ajax({
           url: '{% url "eliminar_item_carrito" 0 %}'.replace('0', itemId),
           type: 'POST',
@@ -161,8 +166,36 @@
         });
       });
     });
-    </script>
-    
+  </script>
+
+  <!-- SCRIPT para boton + -->
+  <script>
+    $(document).ready(function () {
+      $('.agregar_carro').on('click', function () {
+        var productId = $(this).data('product-id');
+        $.ajax({
+          url: '{% url "agregar_al_carrito" 0 %}'.replace('0', productId),
+          type: 'POST',
+          dataType: 'json',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          success: function (response) {
+            if (response.status === 'success') {
+              alert('Producto agregado al carrito. Cantidad: ' + response.cantidad);
+              location.reload();
+            }
+          },
+          error: function (xhr, status, error) {
+            alert('Ocurrió un error al agregar el producto al carrito.');
+          }
+        });
+      });
+    });
+  </script>
+
+
 </body>
 
 </html>
