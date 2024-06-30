@@ -74,3 +74,24 @@ def eliminar_item_carrito(request, item_id):
         return JsonResponse({'status': 'success'})
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)})
+
+def eliminar_cantidad_del_carrito(request, product_id):
+    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        item = get_object_or_404(ItemCarrito, producto__id=product_id)
+        if item.cantidad > 0:
+            item.cantidad -= 1
+            item.save()
+            data = {
+                'status': 'success'
+            }
+        else:
+            data = {
+                'status': 'error',
+                'message': 'No se puede reducir la cantidad.'
+            }
+    else:
+        data = {
+            'status': 'error',
+            'message': 'La solicitud no es válida.'
+        }
+    return JsonResponse(data)

@@ -92,9 +92,11 @@
                   <div class="col-lg-6">
                     <p>Unidades:</p>
                     <div class="d-flex align-items-center">
-                      <button class="btn btn-secondary rounded-pill mr-2" onclick="updateCart(this, -1)">-</button>
+                      <!--boton "-" -->
+                      <button class="btn btn-secondary rounded-pill mr-2 eliminar_cantidad" type="button"
+                        data-product-id="{{ item.producto.id }}">-</button>
                       <p class="mb-0">{{ item.cantidad }}</p>
-                      <!--boton +-->
+                      <!--boton "+" -->
                       <button class="btn btn-secondary rounded-pill mr-2 agregar_carro" type="button"
                         data-product-id="{{ item.producto.id }}">+</button>
 
@@ -195,6 +197,32 @@
     });
   </script>
 
+  <!-- SCRIPT para boton - -->
+  <script>
+    $(document).ready(function () {
+      $('.eliminar_cantidad').on('click', function () {
+        var productId = $(this).data('product-id');
+        $.ajax({
+          url: '{% url "eliminar_cantidad_del_carrito" 0 %}'.replace('0', productId),
+          type: 'POST',
+          dataType: 'json',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          success: function (response) {
+            if (response.status === 'success') {
+              alert('Se ha eliminado la cantidad del producto del carrito. Nueva cantidad: ' + response.cantidad);
+              location.reload();
+            }
+          },
+          error: function (xhr, status, error) {
+            alert('Ocurrió un error al eliminar la cantidad del producto del carrito.');
+          }
+        });
+      });
+    });
+  </script>
 
 </body>
 
