@@ -90,12 +90,14 @@
                 <h5>{{ item.producto }}</h5>
                 <div class="row">
                   <div class="col-lg-6">
+                    <p>Valor: {{item.valor_producto}}</p>
+                    <br>
                     <p>Unidades:</p>
                     <div class="d-flex align-items-center">
                       <!--boton "-" -->
                       <button class="btn btn-secondary rounded-pill mr-2 eliminar_cantidad" type="button"
                         data-product-id="{{ item.producto.id }}">-</button>
-                      <p class="mb-0">{{ item.cantidad }}</p>
+                        <p class="mb-0 cantidad">{{ item.cantidad }}</p>
                       <!--boton "+" -->
                       <button class="btn btn-secondary rounded-pill mr-2 agregar_carro" type="button"
                         data-product-id="{{ item.producto.id }}">+</button>
@@ -125,54 +127,63 @@
               <div>
                 <p>Total</p>
               </div>
-              <div><span>$</span>34.000</div>
+              <div>
+                <span id="total-carrito">$0</span>
+              </div>
             </div>
+            <button class="btn btn-success rounded-pill custom-button" type="button">Comprar</button>
           </div>
-          <button class="btn btn-success rounded-pill custom-button" type="button">Comprar</button>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- FOOTER -->
-  <footer class="container-fluid bg-dark">
-    <!-- ...contenido del pie de página... -->
-  </footer>
+    <!-- FOOTER -->
+    <footer class="container-fluid bg-dark">
+      <!-- ...contenido del pie de página... -->
+    </footer>
 
-  <!-- SCRIPT para boton eliminar -->
-  <script>
-    $(document).ready(function () {
-      $('.eliminar-item').click(function () {
-        var itemId = $(this).data('item-id');  // Obtener el ID del ítem a eliminar
+<script>
+  $(document).ready(function () {
+    //calculat total
+    function calcularTotalCarrito() {
+      $.ajax({
+        url: '{% url "obtener_total_carrito" %}',
+        type: 'GET',
+        dataType: 'json',
+        success: function (response) {
+          $('#total-carrito').text('$' + response.total.toFixed(2));
+        },
+        error: function (xhr, status, error) {
+          alert('Hubo un problema al intentar obtener el total del carrito.');
+        }
+      });
+    }
 
-        $.ajax({
-          url: '{% url "eliminar_item_carrito" 0 %}'.replace('0', itemId),
-          type: 'POST',
-          dataType: 'json',
-          headers: {
-            'X-CSRFToken': '{{ csrf_token }}',
-            'X-Requested-With': 'XMLHttpRequest'
-          },
-          success: function (response) {
-            if (response.status === 'success') {
-              alert('Ítem eliminado del carrito exitosamente.');
-              // Opcional: Actualizar la interfaz de usuario para reflejar el cambio
-              location.reload(); // Recargar la página para actualizar la lista de ítems
-            } else {
-              alert('Hubo un problema al intentar eliminar el ítem del carrito.');
-            }
-          },
-          error: function (xhr, status, error) {
-            alert('Hubo un problema al intentar eliminar el ítem del carrito.');
+    // Llama a calcularTotalCarrito cuando se cargue la página
+    calcularTotalCarrito();
+
+    $('.agregar_carro').on('click', function () {
+      var productId = $(this).data('product-id');
+      $.ajax({
+        url: '{% url "agregar_al_carrito" 0 %}'.replace('0', productId),
+        type: 'POST',
+        dataType: 'json',
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        success: function (response) {
+          if (response.status === 'success') {
+            alert('Producto agregado al carrito. Cantidad: ' + response.cantidad);
+            calcularTotalCarrito();  // Actualizar el total del carrito
           }
-        });
+        },
+        error: function (xhr, status, error) {
+          alert('Ocurrió un error al agregar el producto al carrito.');
+        }
       });
     });
-  </script>
-
-  <!-- SCRIPT para boton + -->
-  <script>
-    $(document).ready(function () {
+      // Agregar cantidad
       $('.agregar_carro').on('click', function () {
         var productId = $(this).data('product-id');
         $.ajax({
@@ -194,12 +205,8 @@
           }
         });
       });
-    });
-  </script>
 
-  <!-- SCRIPT para boton - -->
-  <script>
-    $(document).ready(function () {
+      // eliminar cantidad
       $('.eliminar_cantidad').on('click', function () {
         var productId = $(this).data('product-id');
         $.ajax({
@@ -221,9 +228,33 @@
           }
         });
       });
-    });
-  </script>
 
+      //eliminar item
+      $('.eliminar-item').click(function () {
+        var itemId = $(this).data('item-id');
+        $.ajax({
+          url: '{% url "eliminar_item_carrito" 0 %}'.replace('0', itemId),
+          type: 'POST',
+          dataType: 'json',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+          success: function (response) {
+            if (response.status === 'success') {
+              alert('Ítem eliminado del carrito exitosamente.');
+              location.reload();
+            } else {
+              alert('Hubo un problema al intentar eliminar el ítem del carrito.');
+            }
+          },
+          error: function (xhr, status, error) {
+            alert('Hubo un problema al intentar eliminar el ítem del carrito.');
+          }
+        });
+      });
+    });
+</script>
 </body>
 
 </html>

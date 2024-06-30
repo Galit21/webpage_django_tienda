@@ -95,3 +95,9 @@ def eliminar_cantidad_del_carrito(request, product_id):
             'message': 'La solicitud no es válida.'
         }
     return JsonResponse(data)
+
+def obtener_total_carrito(request):
+    if request.method == 'GET':
+        carrito = get_object_or_404(Carrito)
+        total = sum(item.cantidad * item.valor_producto for item in carrito.items.all())
+        return JsonResponse({'total': total})
