@@ -33,6 +33,12 @@ class ItemCarrito(models.Model):
     carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE, related_name='items')
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(default=1)
+    valor_producto = models.IntegerField() 
 
-    def str(self):
+    def save(self, *args, **kwargs):
+        
+        self.valor_producto = self.producto.valor  
+        super().save(*args, **kwargs)
+
+    def __str__(self):
         return f'{self.producto.nombre} x {self.cantidad}'
