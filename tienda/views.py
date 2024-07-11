@@ -51,6 +51,16 @@ def carro(request):
         'itemcarrito' : itemcarrito}
     return render(request, 'tienda\carro_compra.html', context)
 
+def sobre_nosotros(request):
+    categoria = Categoria.objects.all()
+    context={'categoria': categoria}
+    return render(request, 'tienda\sobre_nosotros.html', context)
+
+def politicas(request):
+    categoria = Categoria.objects.all()
+    context={'categoria': categoria}
+    return render(request, 'tienda\politicas.html', context)
+
 #-----------------------------------#
 
 def agregar_al_carrito(request, product_id):
