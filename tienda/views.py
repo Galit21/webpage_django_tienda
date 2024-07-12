@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.core.exceptions import ValidationError
 from django.http import JsonResponse
 from tienda.models import Producto
 import datetime
 
 # Create your views here.
 
-from .models import Categoria, SubCategoria, Producto, Carrito, ItemCarrito
+from .models import Categoria, SubCategoria, Producto, Carrito, ItemCarrito, Usuario
 
 def home(request):
     categoria = Categoria.objects.all()
@@ -61,6 +63,11 @@ def politicas(request):
     context={'categoria': categoria}
     return render(request, 'tienda\politicas.html', context)
 
+def registro(request):
+    categoria = Categoria.objects.all()
+    context={'categoria': categoria}
+    return render(request, 'tienda\crear_registro.html', context)
+
 #-----------------------------------#
 
 def agregar_al_carrito(request, product_id):
@@ -111,3 +118,23 @@ def obtener_total_carrito(request):
         carrito = get_object_or_404(Carrito)
         total = sum(item.cantidad * item.valor_producto for item in carrito.items.all())
         return JsonResponse({'total': total})
+
+#-----------------------------------------------------#
+@csrf_protect
+def registrar_usuario(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        apellido = request.POST.get('apellido')
+        email = request.POST.get('email')
+        contrasena = request.POST.get('contrasena')
+        
+        try:
+            nuevo_usuario = Usuario(nombre=nombre, apellido=apellido, email=email, contrasena=contrasena)
+            nuevo_usuario.full_clean()  # Realiza todas las validaciones del modelo
+            nuevo_usuario.save()
+            return JsonResponse({'status': 'success'})
+        
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': 'Ocurrió un error al guardar el usuario.'})
+
+    return JsonResponse({'status': 'error', 'message': 'Método de solicitud no permitido'})
