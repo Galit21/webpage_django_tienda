@@ -92,32 +92,41 @@ def eliminar_item_carrito(request, item_id):
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)})
 
-def eliminar_cantidad_del_carrito(request, product_id):
-    if request.method == 'POST' and request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        item = get_object_or_404(ItemCarrito, producto__id=product_id)
-        if item.cantidad > 0:
-            item.cantidad -= 1
-            item.save()
-            data = {
-                'status': 'success'
-            }
-        else:
-            data = {
-                'status': 'error',
-                'message': 'No se puede reducir la cantidad.'
-            }
-    else:
-        data = {
-            'status': 'error',
-            'message': 'La solicitud no es válida.'
-        }
-    return JsonResponse(data)
+def eliminar_item_carrito(request, item_id):
+    item = get_object_or_404(ItemCarrito, id=item_id)
+    try:
+        item.delete()
+        return JsonResponse({'status': 'success'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)})
 
-def obtener_total_carrito(request):
+def eliminar_cantidad_carrito(request, product_id):
+    if request.method == 'POST':
+        carrito, created = Carrito.objects.get_or_create(usuario=request.user)
+        producto = get_object_or_404(Producto, id=product_id)
+
+        try:
+            item = ItemCarrito.objects.get(carrito=carrito, producto=producto)
+            if item.cantidad > 1:
+                item.cantidad -= 1
+                item.save()
+                return JsonResponse({'status': 'success', 'cantidad': item.cantidad})
+            else:
+                item.delete()
+                return JsonResponse({'status': 'success', 'cantidad': 0})
+        except ItemCarrito.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Producto no encontrado en el carrito'})
+
+    return JsonResponse({'status': 'error', 'message': 'Método no permitido'}, status=405)
+
+
+def calcular_total_carrito(request):
     if request.method == 'GET':
-        carrito = get_object_or_404(Carrito)
-        total = sum(item.cantidad * item.valor_producto for item in carrito.items.all())
-        return JsonResponse({'total': total})
+        carrito, created = Carrito.objects.get_or_create(usuario=request.user)
+        total = sum(item.cantidad * item.valor_producto for item in carrito.itemcarrito_set.all())
+        return JsonResponse({'status': 'success', 'total': total})
+    return JsonResponse({'status': 'error', 'message': 'Método no permitido'}, status=405)
+
 
 #-----------------------------------------------------#
 @csrf_protect
